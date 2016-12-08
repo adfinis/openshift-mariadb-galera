@@ -30,6 +30,8 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 		CREATE USER 'root'@'%' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}' ;
 		GRANT ALL ON *.* TO 'root'@'%' WITH GRANT OPTION ;
 		DROP DATABASE IF EXISTS test ;
+		CREATE USER 'xtrabackup_sst'@'localhost' IDENTIFIED BY 'xtrabackup_sst' ;
+		GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'xtrabackup_sst'@'localhost' ;
 	EOSQL
 
 
