@@ -1,7 +1,7 @@
 [mysqld]
 datadir = /var/lib/mysql
 
-user = mysql
+#user = mysql
 bind-address = 0.0.0.0
 wsrep_provider = /usr/lib64/galera/libgalera_smm.so
 wsrep_sst_method = xtrabackup-v2

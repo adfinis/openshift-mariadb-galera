@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+# Adfinis SyGroup AG
+# openshift-mariadb-galera: mysql setup script
+#
+
 set -e
 set -x
 
@@ -7,8 +12,6 @@ if [ -z $1 ]; then
 else
   FIRST_TIME_SQL="$1"
 fi
-
-
 
 
 echo 'Running mysql_install_db ...'
@@ -30,6 +33,9 @@ GRANT ALL ON *.* TO 'root'@'%' WITH GRANT OPTION ;
 DROP DATABASE IF EXISTS test ;
 CREATE USER 'xtrabackup_sst'@'localhost' IDENTIFIED BY 'xtrabackup_sst' ;
 GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'xtrabackup_sst'@'localhost' ;
+
+
+CREATE USER 'readinessProbe'@'127.0.0.1' IDENTIFIED BY 'readinessProbe';
 EOSQL
 
 

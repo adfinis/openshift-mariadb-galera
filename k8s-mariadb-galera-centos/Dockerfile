@@ -6,8 +6,8 @@ LABEL io.k8s.description="MariaDB is a multi-user, multi-threaded SQL database s
       io.openshift.tags="database,mysql,mariadb10,rh-mariadb10"
 EXPOSE 3306/tcp
 
+ADD root /
 
-COPY mariadb.repo /etc/yum.repos.d/mariadb.repo
 RUN rpm --import https://yum.mariadb.org/RPM-GPG-KEY-MariaDB && \
     yum install -y \
       epel-release && \
@@ -17,26 +17,13 @@ RUN rpm --import https://yum.mariadb.org/RPM-GPG-KEY-MariaDB && \
       galera \
       which \
       socat \
-      percona-xtrabackup && \
-    yum clean all && \
-    rm -rf /var/lib/mysql && \
-    mkdir -p /var/lib/mysql && \
-    chown mysql:root /var/lib/mysql && \
-    chmod g+w /var/lib/mysql
+      percona-xtrabackup \
+      policycoreutils && \
+    yum clean all
 
 
-RUN mkdir /init
+RUN  /usr/libexec/container-setup.sh
 
-COPY init/*sh /init/
-COPY init/*cnf /init/
-COPY init/peer-finder /init/
-
-RUN chmod 755 /init/*sh && chmod 755 /init/peer-finder
-
-COPY init/server.cnf /etc/my.cnf.d/server.cnf
-RUN mkdir -p /etc/mysql && chown 27.0 /etc/mysql
 VOLUME ["/var/lib/mysql"]
-
 USER 27
-
-ENTRYPOINT ["/init/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/container-entrypoint.sh"]
