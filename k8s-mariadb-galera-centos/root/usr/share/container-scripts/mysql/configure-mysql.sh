@@ -47,6 +47,7 @@ if [ "$MYSQL_USER" -a "$MYSQL_PASSWORD" ]; then
   echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' ;" >> "$FIRST_TIME_SQL"
   echo "CREATE USER '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD' ;" >> "$FIRST_TIME_SQL"
 fi
+
 if [ "$MYSQL_USER" -a ! "$MYSQL_PASSWORD" ]; then
   echo "CREATE USER '$MYSQL_USER'@'%'  ;"         >> "$FIRST_TIME_SQL"
   echo "CREATE USER '$MYSQL_USER'@'localhost'  ;" >> "$FIRST_TIME_SQL"
