@@ -21,5 +21,5 @@ restorecon -R ${MYSQL_DATA_DIR}
 # Create config dir & fix permissions
 mkdir -p ${MYSQL_CONFIG_DIR}
 chown -R 27:0 ${MYSQL_CONFIG_DIR}
-#chmod -R 777 ${MYSQL_CONFIG_DIR}
+chmod -R g+w ${MYSQL_CONFIG_DIR}
 restorecon -R ${MYSQL_CONFIG_DIR}

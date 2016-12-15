@@ -24,7 +24,7 @@ else
 	echo "Galera: Finding peers"
 	K8S_SVC_NAME=$(hostname -f | cut -d"." -f2)
 	echo "Using service name: ${K8S_SVC_NAME}"
-	cp ${CONTAINER_SCRIPTS_DIR}/galera.cnf /etc/my.cnf.d
+	cp ${CONTAINER_SCRIPTS_DIR}/galera.cnf ${EXTRA_DEFAULTS_FILE}
 	/usr/bin/peer-finder -on-start="${CONTAINER_SCRIPTS_DIR}/configure-galera.sh" -service=${K8S_SVC_NAME}
 	MYSQLD_FLAGS+="--defaults-extra-file=${EXTRA_DEFAULTS_FILE} "
 fi
