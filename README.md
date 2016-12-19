@@ -1,5 +1,7 @@
 # MariaDB Galera cluster on OpenShift
 
+
+[![Travis](https://img.shields.io/travis/adfinis-sygroup/openshift-mariadb-galera.svg?style=flat-square)](https://travis-ci.org/adfinis-sygroup/openshift-mariadb-galera)
 [![License](https://img.shields.io/github/license/adfinis-sygroup/openshift-mariadb-galera.svg?style=flat-square)](LICENSE)
 
 
