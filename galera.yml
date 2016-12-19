@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: 10.9.5.242:5000/adsy/galera-combined:v002
+        image: adfinissygroup/k8s-mariadb-galera-centos:v001
         imagePullPolicy: Always
         ports:
         - containerPort: 3306
