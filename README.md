@@ -103,6 +103,8 @@ $ git clone https://github.com/adfinis-sygroup/openshift-mariadb-galera
 $ cd k8s-mariadb-galera-centos
 $ make
 ```
+Technical informations how the image works in detail can be found
+[here](k8s-mariadb-galera-centos/README.md)
 
 
 ## Contributions
