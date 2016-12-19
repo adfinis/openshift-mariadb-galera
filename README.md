@@ -1,5 +1,8 @@
 # MariaDB Galera cluster on OpenShift
 
+[![License](https://img.shields.io/github/license/adfinis-sygroup/openshift-mariadb-galera.svg?style=flat-square)](LICENSE)
+
+
 ## Requirements
 - OpenShift Origin 1.3 or Enterprise 3.3 OR
 - Kubernetes 1.3+
@@ -100,3 +103,14 @@ $ git clone https://github.com/adfinis-sygroup/openshift-mariadb-galera
 $ cd k8s-mariadb-galera-centos
 $ make
 ```
+
+
+## Contributions
+Contributions are more than welcome! Please feel free to open new issues or
+pull requests.
+
+
+## License
+GNU GENERAL PUBLIC LICENSE Version 3
+
+See the [LICENSE](LICENSE) file.
