@@ -2,11 +2,11 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: mariadb-galera-ephemeral
+  name: mariadb-galera-persistent
   annotations:
-    description: MariaDB Galera cluster ephemeral
+    description: MariaDB Galera cluster persistent (NFS)
     iconClass: icon-mariadb
-    tags: database,mysql,replication,mariadb,galera
+    tags: database,mysql,replication,mariadb,galera,nfs
 parameters:
 - name: MYSQL_SERVICE_NAME
   description: Service name for the MariaDB service
@@ -18,6 +18,14 @@ parameters:
   description: Number of Galera Nodes
   value: "3"
   required: true
+- name: VOLUME_PV_NAME
+  description: Volume PV basename. If the name is "datadir", it you need to create datadir-GALERA_PETSET_NAME-number
+  value: datadir
+  required: true
+- name: VOLUME_CAPACITY
+  description: Volume space available for data, e.g. 512Mi, 2Gi.
+  required: true
+  value: 2Gi
 - name: MYSQL_USER
   description: The username that clients will use to connect to the server
   value: user
@@ -49,6 +57,7 @@ objects:
     clusterIP: None
     selector:
       app: "${GALERA_PETSET_NAME}"
+
 
 - apiVersion: apps/v1alpha1
   kind: PetSet
@@ -83,6 +92,9 @@ objects:
               - /usr/share/container-scripts/mysql/readiness-probe.sh
             initialDelaySeconds: 15
             timeoutSeconds: 5
+          volumeMounts:
+          - name: "${VOLUME_PV_NAME}"
+            mountPath: /var/lib/mysql
           env:
             - name: POD_NAMESPACE
               valueFrom:
@@ -99,3 +111,11 @@ objects:
               value: "${MYSQL_ROOT_PASSWORD}"
             - name: GALERA_PETSET_NAME
               value: "${GALERA_PETSET_NAME}"
+    volumeClaimTemplates:
+    - metadata:
+        name: "${VOLUME_PV_NAME}"
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: "${VOLUME_CAPACITY}"
