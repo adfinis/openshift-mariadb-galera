@@ -1,0 +1,10 @@
+---
+language: generic
+
+sudo: required
+
+services:
+  - docker
+
+script:
+  - make image -C k8s-mariadb-galera-centos
