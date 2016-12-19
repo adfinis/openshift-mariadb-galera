@@ -1,0 +1,101 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: mariadb-galera-ephemeral
+  annotations:
+    description: MariaDB Galera cluster ephemeral
+    iconClass: icon-database
+    tags: database,mysql,replication,mariadb,galera
+parameters:
+- name: MYSQL_SERVICE_NAME
+  description: Service name for the MariaDB service
+  value: galera
+- name: GALERA_PETSET_NAME
+  description: PetSet name
+  value: mysql
+- name: NUMBER_OF_GALERA_MEMBERS
+  description: Number of Galera Nodes
+  value: "3"
+  required: true
+- name: MYSQL_USER
+  description: The username that clients will use to connect to the server
+  value: user
+- name: MYSQL_PASSWORD
+  description: The password for the MYSQL_USER
+  generate: expression
+  from: "[a-zA-Z0-9]{12}"
+- name: MYSQL_DATABASE
+  description: The name of the database that will be created and replicated
+  value: userdb
+- name: MYSQL_ROOT_PASSWORD
+  description: The password for the root user
+  generate: expression
+  from: "[a-zA-Z0-9]{12}"
+
+objects:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+    name: "${MYSQL_SERVICE_NAME}"
+    labels:
+      app: "${GALERA_PETSET_NAME}"
+  spec:
+    ports:
+    - port: 3306
+      name: "${GALERA_PETSET_NAME}"
+    clusterIP: None
+    selector:
+      app: "${GALERA_PETSET_NAME}"
+
+- apiVersion: apps/v1alpha1
+  kind: PetSet
+  metadata:
+    name: "${GALERA_PETSET_NAME}"
+  spec:
+    serviceName: "${MYSQL_SERVICE_NAME}"
+    replicas: "${NUMBER_OF_GALERA_MEMBERS}"
+    template:
+      metadata:
+        labels:
+          app: "${GALERA_PETSET_NAME}"
+        annotations:
+          pod.alpha.kubernetes.io/initialized: "true"
+      spec:
+        containers:
+        - name: "${GALERA_PETSET_NAME}"
+          image: adsy/galera-combined:v002
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 3306
+            name: mysql
+          - containerPort: 4444
+            name: sst
+          - containerPort: 4567
+            name: replication
+          - containerPort: 4568
+            name: ist
+          readinessProbe:
+            exec:
+              command:
+              - /usr/share/container-scripts/mysql/readiness-probe.sh
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
+          env:
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: MYSQL_USER
+              value: "${MYSQL_USER}"
+            - name: MYSQL_PASSWORD
+              value: "${MYSQL_PASSWORD}"
+            - name: MYSQL_DATABASE
+              value: "${MYSQL_DATABASE}"
+            - name: MYSQL_ROOT_PASSWORD
+              value: "${MYSQL_ROOT_PASSWORD}"
+            - name: GALERA_PETSET_NAME
+              value: "${GALERA_PETSET_NAME}"
