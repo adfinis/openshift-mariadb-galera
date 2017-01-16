@@ -6,7 +6,7 @@ LABEL io.k8s.description="MariaDB is a multi-user, multi-threaded SQL database s
       io.openshift.tags="database,mysql,mariadb10,rh-mariadb10"
 EXPOSE 3306/tcp
 
-ADD root/etc/yum.repos.d/mariadb.repo /etc/yum.repos.d/
+COPY root/etc/yum.repos.d/mariadb.repo /etc/yum.repos.d/
 
 RUN rpm --import https://yum.mariadb.org/RPM-GPG-KEY-MariaDB && \
     yum install -y \
@@ -22,8 +22,8 @@ RUN rpm --import https://yum.mariadb.org/RPM-GPG-KEY-MariaDB && \
       policycoreutils && \
     yum clean all
 
-ADD root /
-RUN  /usr/libexec/container-setup.sh
+COPY root /
+RUN /usr/libexec/container-setup.sh
 
 VOLUME ["/var/lib/mysql"]
 USER 27
