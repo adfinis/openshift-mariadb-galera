@@ -90,6 +90,14 @@ $ kubectl create -f galera-pv-host.yml
 $ kubectl create -f galera.yml
 ```
 
+For Kubernetes v1.5 the API endpoints have changed and you need to use
+the definition in `galera_k8s_v1.5/yml`.
+
+```bash
+$ kubectl create -f galera-pv-host.yml
+$ kubectl create -f galera)k8s_v1.5.yml
+```
+
 ### Cleanup cluster
 ```bash
 $ kubectl delete petset mysql
