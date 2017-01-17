@@ -10,7 +10,6 @@ set -x
 # Locations
 CONTAINER_SCRIPTS_DIR="/usr/share/container-scripts/mysql"
 EXTRA_DEFAULTS_FILE="/etc/my.cnf.d/galera.cnf"
-FIRST_TIME_SQL="/tmp/mysql-first-time.sql"
 MYSQLD_FLAGS=""
 
 
@@ -33,8 +32,7 @@ fi
 # We assume that mysql needs to be setup if this directory is not present
 if [ ! -d "/var/lib/mysql/mysql" ]; then
 	echo "Configure first time mysql"
-	${CONTAINER_SCRIPTS_DIR}/configure-mysql.sh "${FIRST_TIME_SQL}"
-	MYSQLD_FLAGS+="--init-file=${FIRST_TIME_SQL} "
+	${CONTAINER_SCRIPTS_DIR}/configure-mysql.sh
 fi
 
 

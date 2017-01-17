@@ -6,7 +6,7 @@
 
 MYSQL_USER="readinessProbe"
 MYSQL_PASS="readinessProbe"
-MYSQL_HOST="127.0.0.1"
+MYSQL_HOST="localhost"
 
 mysql -u${MYSQL_USER} -p${MYSQL_PASS} -h${MYSQL_HOST} -e"SHOW DATABASES;"
 
