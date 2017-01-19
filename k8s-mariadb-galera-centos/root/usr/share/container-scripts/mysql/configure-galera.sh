@@ -28,9 +28,8 @@ function join {
 }
 
 HOSTNAME=$(hostname)
-# Parse out cluster name, formatted as: petset_name-index
-IFS='-' read -ra ADDR <<< "$(hostname)"
-CLUSTER_NAME="${ADDR[0]}"
+# Parse out cluster name, from service name:
+CLUSTER_NAME="$(hostname -f | cut -d'.' -f2)"
 
 while read -ra LINE; do
     if [[ "${LINE}" == *"${HOSTNAME}"* ]]; then
