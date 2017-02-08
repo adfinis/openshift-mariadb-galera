@@ -21,6 +21,7 @@ RUN rpm --import https://yum.mariadb.org/RPM-GPG-KEY-MariaDB && \
       bind-utils \
       policycoreutils && \
     yum clean all
+RUN echo '!include /etc/config/my_extra.cnf' >> /etc/my.cnf
 
 COPY root /
 RUN /usr/libexec/container-setup.sh
