@@ -4,18 +4,16 @@ bind-address                      = 0.0.0.0
 
 # this is only for the mysqld standalone daemon
 [mysqld]
+datadir = /var/lib/mysql
 
 #
 # * Galera-related settings
 #
 [galera]
 # Mandatory settings
-wsrep_on=ON
-wsrep_provider                    = /usr/lib64/galera/libgalera_smm.so
-wsrep_sst_method                  = rsync
-binlog_format=ROW
-wsrep_cluster_address='gcomm://'
-
+wsrep_on = ON
+wsrep_provider = /usr/lib64/galera/libgalera_smm.so
+binlog_format = ROW
 
 # this is only for embedded server
 [embedded]

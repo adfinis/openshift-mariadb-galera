@@ -10,8 +10,6 @@ set -x
 # Locations
 CONTAINER_SCRIPTS_DIR="/usr/share/container-scripts/mysql"
 EXTRA_DEFAULTS_FILE="/etc/my.cnf.d/galera.cnf"
-MYSQLD_FLAGS=""
-
 
 # Check if the container runs in Kubernetes/OpenShift
 if [ -z "$POD_NAMESPACE" ]; then
@@ -25,7 +23,6 @@ else
 	echo "Using service name: ${K8S_SVC_NAME}"
 	cp ${CONTAINER_SCRIPTS_DIR}/galera.cnf ${EXTRA_DEFAULTS_FILE}
 	/usr/bin/peer-finder -on-start="${CONTAINER_SCRIPTS_DIR}/configure-galera.sh" -service=${K8S_SVC_NAME}
-	MYSQLD_FLAGS+="--defaults-extra-file=${EXTRA_DEFAULTS_FILE} "
 fi
 
 
@@ -37,4 +34,4 @@ fi
 
 
 # Run mysqld
-exec mysqld ${MYSQLD_FLAGS}
+exec mysqld

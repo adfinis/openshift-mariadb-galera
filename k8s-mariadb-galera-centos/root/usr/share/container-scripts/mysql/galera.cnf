@@ -1,9 +1,4 @@
-[mysqld]
-datadir = /var/lib/mysql
-
-#user = mysql
-bind-address = 0.0.0.0
-wsrep_provider = /usr/lib64/galera/libgalera_smm.so
+[galera]
 wsrep_sst_method = xtrabackup-v2
 # This can be insecure, because the user is only available via localhost
 # We should still try to integrate it with Kubernetes secrets
@@ -19,8 +14,3 @@ query_cache_type = 0
 wsrep_cluster_address=gcomm://
 wsrep_cluster_name=galera
 wsrep_node_address=127.0.0.1
-
-# TODO: Enable use privileges. This doesn't work
-# on mysql restart, for some reason after the SST
-# permissions are not setup correctly.
-# skip-grant-tables
