@@ -5,6 +5,7 @@ bind-address                      = 0.0.0.0
 # this is only for the mysqld standalone daemon
 [mysqld]
 datadir = /var/lib/mysql
+ignore_db_dirs=lost+found
 
 #
 # * Galera-related settings
