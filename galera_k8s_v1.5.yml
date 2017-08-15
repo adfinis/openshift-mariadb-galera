@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: adfinissygroup/k8s-mariadb-galera-centos:v002
+        image: adfinissygroup/k8s-mariadb-galera-centos:v003
         imagePullPolicy: Always
         ports:
         - containerPort: 3306
@@ -50,6 +50,7 @@ spec:
         volumeMounts:
         - name: datadir
           mountPath: /var/lib/mysql
+          subPath: data
         env:
           - name: POD_NAMESPACE
             valueFrom:

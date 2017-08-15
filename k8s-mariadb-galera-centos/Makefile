@@ -1,5 +1,5 @@
 IMAGE_NAME=adfinissygroup/k8s-mariadb-galera-centos
-IMAGE_VERSION=v002
+IMAGE_VERSION=v003
 LOCAL_REGISTRY=localhost:5000
 
 image:
