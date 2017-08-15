@@ -75,7 +75,7 @@ objects:
       spec:
         containers:
         - name: "${GALERA_PETSET_NAME}"
-          image: adfinissygroup/k8s-mariadb-galera-centos:v002
+          image: adfinissygroup/k8s-mariadb-galera-centos:v003
           imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 3306
@@ -95,6 +95,7 @@ objects:
           volumeMounts:
           - name: "${VOLUME_PV_NAME}"
             mountPath: /var/lib/mysql
+            subPath: data
           env:
             - name: POD_NAMESPACE
               valueFrom:

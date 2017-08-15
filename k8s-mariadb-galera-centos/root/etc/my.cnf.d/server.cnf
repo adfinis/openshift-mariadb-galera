@@ -6,6 +6,7 @@ bind-address                      = 0.0.0.0
 [mysqld]
 datadir = /var/lib/mysql
 ignore_db_dirs=lost+found
+socket = /var/run/mysql/mysql.sock
 
 #
 # * Galera-related settings

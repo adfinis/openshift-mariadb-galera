@@ -10,10 +10,10 @@ echo 'Running mysql_install_db ...'
 mysql_install_db --datadir=/var/lib/mysql
 echo 'Finished mysql_install_db'
 
-mysqld --skip-networking --socket=/var/lib/mysql/mysql-init.sock --wsrep_on=OFF &
+mysqld --skip-networking --socket=/var/run/mysql/mysql-init.sock --wsrep_on=OFF &
 pid="$!"
 
-mysql=( mysql --protocol=socket -uroot -hlocalhost --socket=/var/lib/mysql/mysql-init.sock )
+mysql=( mysql --protocol=socket -uroot -hlocalhost --socket=/var/run/mysql/mysql-init.sock )
 
 for i in {30..0}; do
   if echo 'SELECT 1' | "${mysql[@]}" &> /dev/null; then
