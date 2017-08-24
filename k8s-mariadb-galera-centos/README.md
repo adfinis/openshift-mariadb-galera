@@ -33,7 +33,7 @@
 ## peer-finder
 - `peer-finder` is a go binary which finds all pods of a service. The source
    can be found here:
-   https://github.com/kubernetes/contrib/blob/master/pets/peer-finder/
+   https://github.com/kubernetes/contrib/tree/master/peer-finder
 - It can be compiled like this:
 ```bash
 $ go get -v
