@@ -59,8 +59,8 @@ objects:
       app: "${GALERA_PETSET_NAME}"
 
 
-- apiVersion: apps/v1alpha1
-  kind: PetSet
+- apiVersion: apps/v1beta1
+  kind: StatefulSet
   metadata:
     name: "${GALERA_PETSET_NAME}"
   spec:
