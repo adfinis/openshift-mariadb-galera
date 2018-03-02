@@ -28,10 +28,15 @@ spec:
       annotations:
         pod.alpha.kubernetes.io/initialized: "true"
     spec:
+      securityContext:
+        runAsUser: 27
+        fsGroup: 27
       containers:
       - name: mysql
         image: adfinissygroup/k8s-mariadb-galera-centos:v003
         imagePullPolicy: Always
+        securityContext:
+          runAsNonRoot: true
         ports:
         - containerPort: 3306
           name: mysql
