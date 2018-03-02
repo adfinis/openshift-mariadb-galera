@@ -75,7 +75,7 @@ objects:
       spec:
         containers:
         - name: "${GALERA_PETSET_NAME}"
-          image: adfinissygroup/k8s-mariadb-galera-centos:v003
+          image: adfinissygroup/k8s-mariadb-galera-centos:v004
           imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 3306
