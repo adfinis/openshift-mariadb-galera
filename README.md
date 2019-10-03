@@ -1,3 +1,11 @@
+# WARNING: :warning: This project is no longer being maintained :warning:
+
+The code in this repository was created as a proof of concept back when
+StatefulSets where still called PetSets and hasn't seen much love since. 
+
+Feel free to use the bootstrap logic and image structure in your project, but
+we're not going to implement any changes going forward.
+
 # MariaDB Galera cluster on OpenShift
 
 
